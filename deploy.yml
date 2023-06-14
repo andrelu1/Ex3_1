@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 14
 
-      - name: Login no Docker Hub
+      - name: Login Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -34,12 +34,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Fazer login no Render.com
+      - name: Login no Render.com
         run: render login --github-token ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Criar serviço no Render.com
+      - name: Render.com
         run: render create --docker-image ${{ secrets.DOCKERHUB_USERNAME }}/app:${{ github.sha }} --name app
 
-      - name: Implantação no Render.com
+      - name: Deploy Render.com
         run: render deploy --name app
 
